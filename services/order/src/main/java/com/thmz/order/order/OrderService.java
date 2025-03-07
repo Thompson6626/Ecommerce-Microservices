@@ -6,8 +6,10 @@ import com.thmz.order.kafka.OrderConfirmation;
 import com.thmz.order.kafka.OrderProducer;
 import com.thmz.order.order.dto.OrderRequest;
 import com.thmz.order.order.dto.OrderResponse;
-import com.thmz.order.orderline.OrderLineRequest;
+import com.thmz.order.orderline.dto.OrderLineRequest;
 import com.thmz.order.orderline.OrderLineService;
+import com.thmz.order.payment.PaymentClient;
+import com.thmz.order.payment.PaymentRequest;
 import com.thmz.order.product.ProductClient;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,8 @@ public class OrderService {
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
 
+    private final PaymentClient paymentClient;
+
     public Integer createOrder(OrderRequest request) {
         var customer = customerClient.findCustomerById(request.customerId())
                 .orElseThrow(() -> new BussinesException(
@@ -49,6 +53,16 @@ public class OrderService {
                             .build()
             );
         }
+
+        paymentClient.requestOrderPayment(
+                PaymentRequest.builder()
+                .amount(request.amount())
+                .paymentMethod(request.paymentMethod())
+                .orderId(order.getId())
+                .orderReference(order.getReference())
+                .customer(customer)
+                .build()
+        );
 
         orderProducer.sendOrderConfirmation(
                 OrderConfirmation.builder()

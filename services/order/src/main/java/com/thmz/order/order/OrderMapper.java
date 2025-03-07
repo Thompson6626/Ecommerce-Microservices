@@ -3,7 +3,7 @@ package com.thmz.order.order;
 import com.thmz.order.order.dto.OrderRequest;
 import com.thmz.order.order.dto.OrderResponse;
 import com.thmz.order.orderline.OrderLine;
-import com.thmz.order.orderline.OrderLineResponse;
+import com.thmz.order.orderline.dto.OrderLineResponse;
 import org.springframework.stereotype.Service;
 
 @Service

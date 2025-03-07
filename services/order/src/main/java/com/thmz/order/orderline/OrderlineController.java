@@ -1,6 +1,6 @@
 package com.thmz.order.orderline;
 
-import com.thmz.order.order.OrderService;
+import com.thmz.order.orderline.dto.OrderLineResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

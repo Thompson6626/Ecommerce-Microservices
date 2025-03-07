@@ -1,4 +1,4 @@
-package com.thmz.order.orderline;
+package com.thmz.order.orderline.dto;
 
 import lombok.Builder;
 import lombok.Getter;
