@@ -55,7 +55,7 @@ This will create a bridge network and run all services in isolation.
 
 ---
 
-## 🧠 Project Structure (Suggested)
+## Project Structure
 
 ```
 ├── services/
